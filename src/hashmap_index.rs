@@ -16,13 +16,12 @@ pub fn build_hash_map_index (s: &str) -> HashMapIndexType {
             continue;
         }
 
-        if word.len() > 2 {
+        if word.len() > 0 {
             hash_map.entry(word.clone())
                 .and_modify(|v| v.push(index - word.len()))
                 .or_insert(vec![index - word.len()]);
+            word.clear();
         }
-
-        word.clear();
     }
 
     hash_map

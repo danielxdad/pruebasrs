@@ -24,14 +24,23 @@ fn main() -> std::io::Result<()> {
         &shellexpand::full("~/Downloads/words/en").unwrap()
     )?;
 
-    let mut total = 0;
+    for word in "hello world how is your day going".split_whitespace() {
+        hash_map
+            .get_key_value(word)
+            .and_then(|tuple| {
+                println!("Found \"{}\" on indexes: {:?}", tuple.0, tuple.1);
+                Some(tuple)
+            }).expect(&format!("Not found: {}", word));
+    }
+
+    /* let mut total = 0;
     for (key, value) in hash_map.iter() {
         total += key.capacity();
         total += value.capacity();
     }
 
     println!("total: {}", total);
-    println!("keys: {}; values: {}", hash_map.keys().len(), hash_map.values().len());
+    println!("keys: {}; values: {}", hash_map.keys().len(), hash_map.values().len()); */
 
     Ok(())
 }
